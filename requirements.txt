@@ -1,0 +1,14 @@
+jupyterlab
+
+pandas>=1.0.0
+numpy
+scipy
+matplotlib
+seaborn
+
+toolz
+
+ipywidgets
+pydeck
+cvxpy
+plotly
