@@ -5,6 +5,7 @@ numpy
 scipy
 matplotlib
 seaborn
+h3
 
 toolz
 
