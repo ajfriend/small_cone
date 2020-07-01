@@ -83,6 +83,32 @@ def small_cone(x, verbose=False):
     
     return A, b, prob
 
+def small_cone2(x, verbose=False):
+    """
+    Parameters
+    ----------
+    x : numpy.array
+        An N x d array, where d is the dimension and N is the number of points
+    """
+    N, d = x.shape
+    
+    x = x/np.linalg.norm(x, axis=1)[:, np.newaxis]
+
+    A = cvx.Variable((d,d), PSD=True)
+
+    cst = [
+        cvx.norm(A@x[i]) <= 1
+        for i in range(N)
+    ]
+
+    obj = cvx.Minimize(-cvx.log_det(A))
+    prob = cvx.Problem(obj, cst)
+    prob.solve(verbose=verbose, eps=1e-8)
+
+    A = A.value
+    
+    return A, prob
+
 
 def matrix_frac(b, A):
     return cvx.matrix_frac(b, A).value
